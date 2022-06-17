@@ -1,4 +1,4 @@
-# Plot 2
+# Plot 3
 setwd("~/R/ExData_Plotting1")
 
 #Load data
@@ -11,9 +11,17 @@ dat$Date <- as.Date(dat$Date, format = "%d/%m/%Y")
 date_time <- paste(as.Date(dat$Date), dat$Time)
 dat$Date_time <- as.POSIXct(date_time)
 
-png(filename = "plot2.png", width = 480, height = 480)
+png(filename = "plot3.png", width = 480, height = 480)
 
-plot(dat$Global_active_power~dat$Date_time, type = "l", 
-     ylab = "Global Active Power (kilowatts)", xlab = "")
+with(dat, {
+  plot(Sub_metering_1~Date_time, type = "l", 
+       ylab = "Global Active Power (kilowatts)", xlab = "")
+  
+  lines(Sub_metering_2~Date_time, col = "Red")
+  lines(Sub_metering_3~Date_time, col = "Blue")
+  
+  legend("topright", col = c("black", "red", "blue"), lty = 1, lwd = 1, 
+         legend = c("Sub Metering 1", "Sub Metering 2", "Sub Metering 3"))
+})
 
 dev.off()
